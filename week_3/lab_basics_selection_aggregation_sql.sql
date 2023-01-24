@@ -126,14 +126,15 @@ ORDER BY type ASC;
 # Query 19
 # From the previous output, translate the values for `type` to English, rename the column to `transaction_type`, round `total_amount` down to an integer
 
-SELECT type as transaction_type, account_id, floor(sum(amount)) as total_amount FROM bank.trans
-CASE 
-	WHEN transaction_type = 'PRIJEM' THEN 'Incoming'
-	WHEN transaction_type = 'VYDAJ' THEN 'Outgoing'
-END AS transaction_type
+SELECT type as transaction_type, account_id, floor(sum(amount)) as total_amount 
+	CASE 
+		WHEN transaction_type = 'PRIJEM' THEN 'Incoming'
+		WHEN transaction_type = 'VYDAJ' THEN 'Outgoing'
+	END AS transaction_type
+FROM bank.trans
 WHERE account_id = 396
-GROUP BY type
-ORDER BY type ASC;
+GROUP BY transaction_type
+ORDER BY transaction_type ASC;
 
 # Query 20
 # From the previous result, modify your query so that it returns only one row, with a column for incoming amount, outgoing amount and the difference
