@@ -11,14 +11,16 @@ WHERE film_id IN (SELECT film_id FROM sakila.film WHERE title = "Hunchback Impos
 # 3. Use subqueries to display all actors who appear in the film _Alone Trip_.
 
 SELECT first_name, last_name FROM sakila.actor
-WHERE actor_id IN (SELECT actor_id FROM sakila.film_actor WHERE film_id IN (SELECT film_id FROM sakila.film WHERE title = "Alone Trip"));
+WHERE actor_id IN
+	(SELECT actor_id FROM sakila.film_actor WHERE film_id IN
+    (SELECT film_id FROM sakila.film WHERE title = "Alone Trip"));
 
 # 4. Sales have been lagging among young families, and you wish to target all family movies for a promotion. Identify all movies categorized as family films.
 
 SELECT title FROM sakila.film
 WHERE film_id IN
-(SELECT film_id FROM film_category WHERE category_id IN
-(SELECT category_id FROM sakila.category WHERE name = "Family"))
+	(SELECT film_id FROM film_category WHERE category_id IN
+	(SELECT category_id FROM sakila.category WHERE name = "Family"))
 GROUP BY title;
 
 # 5. Get name and email from customers from Canada using subqueries. Do the same with joins. Note that to create a join, you will have to identify the correct tables with their primary keys and foreign keys, that will help you get the relevant information.
